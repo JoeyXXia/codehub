@@ -1,8 +1,8 @@
 const KoaRouter = require("koa-router")
-const UserCOntroller = require("../controller/user.controller")
+const UserController = require("../controller/user.controller")
 
 const userRouter = new KoaRouter({ prefix: "/users" })
 
-userRouter.post("/", UserCOntroller.create)
+userRouter.post("/", UserController.create)
 
 module.exports = userRouter
