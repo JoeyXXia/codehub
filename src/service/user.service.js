@@ -1,7 +1,11 @@
 const connection = require("../app/dababase")
 class UserService {
-  create(user) {
-    connection.execute
+  async create(user) {
+    const { name, password } = user
+
+    const statement = "INSERT INTO `user`(name,password)  VALUES (?,?);"
+    const result = await connection.execute(statement, [name, password])
+    return result
   }
 }
 

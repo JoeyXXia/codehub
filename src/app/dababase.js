@@ -6,7 +6,7 @@ const connectionPool = mysql.createPool({
   port: 3306,
   database: "codehub",
   user: "root",
-  password: "xx1993118",
+  password: "000000",
   connectionLimit: 5,
 })
 
