@@ -1,6 +1,7 @@
-const app = require("./app")
-const { SERVER_PORT } = require("./config/server")
+const app = require('./app')
+const { SERVER_PORT } = require('./config/server')
+require('./utils/handle-error')
 
 app.listen(SERVER_PORT, () => {
-  console.log("start koa")
+    console.log('start koa')
 })
