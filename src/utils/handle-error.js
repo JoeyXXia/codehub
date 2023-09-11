@@ -6,7 +6,7 @@ const {
 app.on('error', (error, ctx) => {
     let code = 0
     let message = ''
-
+    console.log('i am trying to check the password')
     switch (error) {
         case NAME_OR_PASSWORD_IS_REQUIRED:
             code = -1001
