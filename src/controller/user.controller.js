@@ -1,19 +1,16 @@
-const userService = require("../service/user.service")
-class UserController {
-  async create(ctx, next) {
-    const user = ctx.request.body;
-    //check username and password
-    const { name, password} = name
-    
-    console.log(user);
-    const result = await userService.create(user)
-    userService.create(user);
+const userService = require('../service/user.service')
 
-    ctx.body = {
-      message:"it is ok",
-      data:result
+class UserController {
+    async create(ctx, next) {
+        // 获取用户请求传递的参数
+        const user = ctx.request.body
+
+        // 查询数据
+        const result = await userService.create(user)
+
+        // 返回数据
+        ctx.body = result
     }
-  }
 }
 
 module.exports = new UserController()
