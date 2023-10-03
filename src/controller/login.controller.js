@@ -4,7 +4,6 @@ const { PRIVATE_KEY } = require('../config/secret')
 
 class LonginController {
     async sign(ctx, next) {
-        console.log('step in sign')
         const { id, name } = ctx.user
 
         const token = jwt.sign({ id, name }, PRIVATE_KEY, {

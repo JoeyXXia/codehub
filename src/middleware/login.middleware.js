@@ -26,7 +26,6 @@ const verifyLogin = async (ctx, next) => {
 
     //keep the user and password
     ctx.user = user
-    console.log('middle', user)
     await next()
 }
 
