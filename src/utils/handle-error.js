@@ -3,12 +3,14 @@ const {
     NAME_OR_PASSWORD_IS_REQUIRED,
     NAME_IS_ALREADY_EXISTS,
     USER_DOES_NOT_EXIST,
-    PASSWORD_IS_INCORRECT
+    PASSWORD_IS_INCORRECT,
+    UNAUTHENTICATION
 } = require('../config/error')
 app.on('error', (error, ctx) => {
     let code = 0
     let message = ''
     console.log('i am trying to check the password')
+    console.log('error: ' + error)
     switch (error) {
         case NAME_OR_PASSWORD_IS_REQUIRED:
             code = -1001
@@ -26,8 +28,12 @@ app.on('error', (error, ctx) => {
             code = -1004
             message = 'password is incorrect'
             break
-        default:
+        case UNAUTHENTICATION:
             code = -1005
+            message = 'unauthenticated'
+            break
+        default:
+            code = -1006
             message = 'not found'
     }
     ctx.body = { code, message }
