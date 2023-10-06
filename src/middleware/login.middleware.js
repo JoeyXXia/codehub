@@ -1,8 +1,12 @@
 const {
     NAME_OR_PASSWORD_IS_REQUIRED,
     USER_DOES_NOT_EXIST,
-    PASSWORD_IS_INCORRECT
+    PASSWORD_IS_INCORRECT,
+    UNAUTHENTICATION
 } = require('../config/error')
+const { PUBLIC_KEY } = require('../config/secret')
+const jwt = require('jsonwebtoken')
+
 const userService = require('../service/user.service')
 const md5password = require('../utils/md5-password')
 
@@ -29,6 +33,25 @@ const verifyLogin = async (ctx, next) => {
     await next()
 }
 
+const verifyAuth = async (ctx, next) => {
+    const authorization = ctx.headers.authorization
+    const token = authorization.replace('Bearer ', '')
+    console.log(token)
+
+    try {
+        const result = jwt.verify(token, PUBLIC_KEY, {
+            algorithms: ['RS256']
+        })
+        console.log(result)
+        ctx.body = `login test is ok`
+    } catch (error) {
+        console.log(error)
+        ctx.app.emit('error', UNAUTHENTICATION, ctx)
+    }
+    await next()
+}
+
 module.exports = {
-    verifyLogin
+    verifyLogin,
+    verifyAuth
 }
