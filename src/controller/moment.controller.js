@@ -13,6 +13,15 @@ class MomentController {
             data: result
         }
     }
+    async list(ctx, next) {
+        const { offset, size } = ctx.query
+
+        const result = await momentService.queryList(offset, size)
+        ctx.body = {
+            code: 0,
+            data: result
+        }
+    }
 }
 
 module.exports = new MomentController()
