@@ -22,6 +22,16 @@ class MomentController {
             data: result
         }
     }
+    async detail(ctx, next) {
+        const { momentId } = ctx.params
+
+        const result = await momentService.queryById(momentId)
+
+        ctx.body = {
+            code: 0,
+            data: result[0]
+        }
+    }
 }
 
 module.exports = new MomentController()
