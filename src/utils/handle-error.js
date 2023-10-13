@@ -4,7 +4,8 @@ const {
     NAME_IS_ALREADY_EXISTS,
     USER_DOES_NOT_EXIST,
     PASSWORD_IS_INCORRECT,
-    UNAUTHENTICATION
+    UNAUTHENTICATION,
+    UNPERMISSION
 } = require('../config/error')
 app.on('error', (error, ctx) => {
     let code = 0
@@ -32,8 +33,12 @@ app.on('error', (error, ctx) => {
             code = -1005
             message = 'unauthenticated'
             break
-        default:
+        case UNPERMISSION:
             code = -1006
+            message = 'unpermission'
+            break
+        default:
+            code = -1007
             message = 'not found'
     }
     ctx.body = { code, message }
