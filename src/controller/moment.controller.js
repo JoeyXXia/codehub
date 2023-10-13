@@ -44,6 +44,17 @@ class MomentController {
             data: result
         }
     }
+
+    async remove(ctx, next) {
+        const { momentId } = ctx.params
+
+        const result = await momentService.remove(momentId)
+        ctx.body = {
+            code: 0,
+            message: 'deleted successfully',
+            data: result
+        }
+    }
 }
 
 module.exports = new MomentController()

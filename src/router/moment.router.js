@@ -4,7 +4,8 @@ const {
     create,
     list,
     detail,
-    update
+    update,
+    remove
 } = require('../controller/moment.controller')
 const {
     verifyMomentPermission
@@ -16,5 +17,6 @@ momentRouter.get('/', list)
 momentRouter.get('/:momentId', detail)
 
 momentRouter.patch('/:momentId', verifyAuth, verifyMomentPermission, update)
+momentRouter.delete('/:momentId', verifyAuth, verifyMomentPermission, remove)
 
 module.exports = momentRouter
