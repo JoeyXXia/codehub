@@ -22,6 +22,39 @@ class MomentController {
             data: result
         }
     }
+    async detail(ctx, next) {
+        const { momentId } = ctx.params
+
+        const result = await momentService.queryById(momentId)
+
+        ctx.body = {
+            code: 0,
+            data: result[0]
+        }
+    }
+
+    async update(ctx, next) {
+        const { momentId } = ctx.params
+
+        const { content } = ctx.request.body
+        const result = await momentService.update(content, momentId)
+        ctx.body = {
+            code: 0,
+            message: 'updated successfully',
+            data: result
+        }
+    }
+
+    async remove(ctx, next) {
+        const { momentId } = ctx.params
+
+        const result = await momentService.remove(momentId)
+        ctx.body = {
+            code: 0,
+            message: 'deleted successfully',
+            data: result
+        }
+    }
 }
 
 module.exports = new MomentController()
