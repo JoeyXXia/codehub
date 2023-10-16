@@ -12,6 +12,23 @@ class commentController {
             data: result
         }
     }
+
+    async reply(ctx, next) {
+        const { content, momentId, commentId } = ctx.request.body
+        const { id } = ctx.user
+
+        const result = await commentService.reply(
+            content,
+            momentId,
+            commentId,
+            id
+        )
+        ctx.body = {
+            code: 0,
+            message: 'reply comment',
+            data: result
+        }
+    }
 }
 
 module.exports = new commentController()
