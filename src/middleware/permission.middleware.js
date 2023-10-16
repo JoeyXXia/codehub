@@ -1,14 +1,18 @@
 const { UNPERMISSION } = require('../config/error')
 const permissionService = require('../service/permission.service')
 
-const verifyMomentPermission = async (ctx, next) => {
-    const { momentId } = ctx.params
-    console.log('momentId', momentId)
+const verifyPermission = async (ctx, next) => {
     const { id } = ctx.user
-    console.log('id', id)
 
-    const isPermission = await permissionService.checkMoment(momentId, id)
-    console.log('isPermission', isPermission)
+    const keyName = Object.keys(ctx.params)[0]
+    const resourceId = ctx.params[keyName]
+    const resourceName = keyName.replace('Id', '')
+
+    const isPermission = await permissionService.checkResource(
+        resourceName,
+        resourceId,
+        id
+    )
 
     if (!isPermission) {
         return ctx.app.emit('error', UNPERMISSION, ctx)
@@ -18,5 +22,5 @@ const verifyMomentPermission = async (ctx, next) => {
 }
 
 module.exports = {
-    verifyMomentPermission
+    verifyPermission
 }
