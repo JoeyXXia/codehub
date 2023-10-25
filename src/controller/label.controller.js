@@ -12,6 +12,8 @@ class LabelController {
             data: result
         }
     }
+
+    async list(ctx, next) {}
 }
 
 module.exports = new LabelController()
