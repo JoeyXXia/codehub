@@ -55,6 +55,40 @@ class MomentController {
             data: result
         }
     }
+
+    async addLabels(ctx, next) {
+        const { labels } = ctx
+        const { momentId } = ctx.params
+
+        try {
+            for (const label of labels) {
+                const isExists = await momentService.hasLabel(
+                    momentId,
+                    label.id
+                )
+
+                console.log(isExists)
+                if (!isExists) {
+                    const result = await momentService.addLabel(
+                        momentId,
+                        label.id
+                    )
+                }
+            }
+
+            console.log(labels)
+            ctx.body = {
+                code: 0,
+                message: 'added labels successfully'
+            }
+        } catch (error) {
+            ctx.body = {
+                code: -30001,
+                message: 'added labels failed'
+            }
+            console.log(error)
+        }
+    }
 }
 
 module.exports = new MomentController()
