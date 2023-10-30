@@ -12,6 +12,12 @@ class FileService {
         ])
         return result
     }
+
+    async queryAvatarByUserId(userId) {
+        const statement = 'SELECT * FROM avatar WHERE user_id =?;'
+        const [result] = await connection.execute(statement, [userId])
+        return result.pop()
+    }
 }
 
 module.exports = new FileService()
